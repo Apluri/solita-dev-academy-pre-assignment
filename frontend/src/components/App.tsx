@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Trip } from "../../../shared/dataTypes";
 import axios from "axios";
+import TripListView from "./TripListView";
 
 const BASE_API_URL = "http://localhost:8080";
 const TRIP_DATA = "/tripdata";
@@ -24,7 +25,7 @@ function App() {
 
   return (
     <Box>
-      <Typography>helo</Typography>
+      <TripListView tripData={tripData} />
     </Box>
   );
 }
