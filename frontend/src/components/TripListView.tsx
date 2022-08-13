@@ -99,7 +99,11 @@ export default function TripListView({ tripData }: Props) {
                     {columns.map((column) => {
                       const value = row[column.key];
                       return (
-                        <TableCell key={column.key} align={column.align}>
+                        <TableCell
+                          key={column.key}
+                          align={column.align}
+                          sx={{ width: `${100 / columns.length}%` }}
+                        >
                           {value}
                         </TableCell>
                       );
