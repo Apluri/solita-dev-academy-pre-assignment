@@ -16,7 +16,12 @@ function App() {
   async function fetchTripData() {
     try {
       const response = await axios.get(BASE_API_URL + TRIP_DATA_URL);
-      setTripdata(response.data);
+      const trips: Trip[] = response.data;
+      setTripdata(
+        trips.sort((a, b) =>
+          a.departureStationName > b.departureStationName ? 1 : -1
+        )
+      );
     } catch (e) {
       console.log(e);
     }
@@ -24,7 +29,10 @@ function App() {
   async function fetchStationData() {
     try {
       const response = await axios.get(BASE_API_URL + STATION_DATA_URL);
-      setStationData(response.data);
+      const stations: Station[] = response.data;
+      setStationData(
+        stations.sort((a, b) => (a.englishName > b.englishName ? 1 : -1))
+      );
     } catch (e) {
       console.log(e);
     }
