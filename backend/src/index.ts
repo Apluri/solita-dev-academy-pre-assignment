@@ -9,9 +9,9 @@ app.use(cors());
 app.get("/tripdata", async (req: Request, res: Response) => {
   const tripData = await getTripData();
 
-  // before pagination send 30 first rows
+  // before pagination send 500 first rows
   const trimmedData: Trip[] = [];
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 500; i++) {
     trimmedData.push(tripData[i]);
   }
   res.json(trimmedData);
@@ -25,7 +25,7 @@ async function main() {
   // TODO when database is implemented, this should be removed or added behind if statement
   await importCsvFiles();
 
-  app.listen(5000, () => {
+  app.listen(8080, () => {
     console.log("serverr running");
   });
 }
