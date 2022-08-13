@@ -25,7 +25,7 @@ async function main() {
   // TODO when database is implemented, this should be removed or added behind if statement
   await importCsvFiles();
 
-  app.listen(5000, () => {
+  app.listen(8080, () => {
     console.log("serverr running");
   });
 }
