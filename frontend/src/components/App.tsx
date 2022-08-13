@@ -1,7 +1,7 @@
+import { Box, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import "./App.css";
-
 const url = "http:localhost:8000";
+
 function App() {
   useEffect(() => {
     fetch(url)
@@ -10,9 +10,9 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <p>data</p>
-    </div>
+    <Box>
+      <Typography>helo</Typography>
+    </Box>
   );
 }
 
