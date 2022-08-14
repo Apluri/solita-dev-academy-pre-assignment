@@ -33,21 +33,21 @@ export default function SingleStation({ station }: Props) {
     );
 
   return (
-    <Box>
-      <Typography>Station info</Typography>
+    <Box sx={{ marginX: "2em" }}>
+      <Typography variant="h6">Station info</Typography>
       <Typography>
-        Station name: {stationResponse?.station.englishName}
+        Station name: <b>{stationResponse?.station.englishName}</b>
       </Typography>
       <Typography>
-        Station address: {stationResponse?.station.address}
+        Station address: <b>{stationResponse?.station.address}</b>
       </Typography>
       <Typography>
         Total number of journeys starting from the station:
-        {stationResponse?.totalTripsFromStation}
+        <b>{stationResponse?.totalTripsFromStation}</b>
       </Typography>
       <Typography>
         Total number of journeys ending at the station:
-        {stationResponse?.totalTripsToStation}
+        <b>{stationResponse?.totalTripsToStation}</b>
       </Typography>
     </Box>
   );
