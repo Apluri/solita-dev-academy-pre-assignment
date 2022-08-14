@@ -9,10 +9,12 @@ app.use("/api", api);
 
 async function main() {
   // TODO when database is implemented, this should be removed or added behind if statement
+  console.log("starting to import csv files...");
   await importCsvFiles();
+  console.log("import complete");
 
   app.listen(8080, () => {
-    console.log("serverr running");
+    console.log("server running");
   });
 }
 

@@ -14,7 +14,7 @@ import {
 
 const router = express.Router();
 
-router.get("/tripdata", async (req: Request, res: Response) => {
+router.get("/tripdata", (req: Request, res: Response) => {
   // limit fetch to smaller ones for perfomance reasons
   const maxRowsToFetch = 500;
 
@@ -34,7 +34,7 @@ router.get("/tripdata", async (req: Request, res: Response) => {
     }
 
     const tripResponse: TripResponse = {
-      trips: await getTripData(startIndex, endIndex),
+      trips: getTripData(startIndex, endIndex),
       datasetSize: getTripDataLength(),
     };
     res.status(200).json(tripResponse);
@@ -42,36 +42,35 @@ router.get("/tripdata", async (req: Request, res: Response) => {
   }
 
   const tripResponse: TripResponse = {
-    trips: await getTripData(0, maxRowsToFetch),
+    trips: getTripData(0, maxRowsToFetch),
     datasetSize: getTripDataLength(),
   };
   res.status(200).json(tripResponse);
 });
-router.get("/stationdata", async (req: Request, res: Response) => {
-  const stationData = await getStationData();
+router.get("/stationdata", (req: Request, res: Response) => {
+  const stationData = getStationData();
   res.status(200).json(stationData);
 });
-router.get(
-  "/stationdata/:stationID([0-9]+)",
-  async (req: Request, res: Response) => {
-    const stationID = Number(req.params.stationID);
+router.get("/stationdata/:stationID([0-9]+)", (req: Request, res: Response) => {
+  const stationID = Number(req.params.stationID);
 
-    const station = getStation(stationID);
-    if (!station) {
-      res.sendStatus(404);
-      return;
-    }
-
-    const { totalTripsFromStation, totalTripsToStation } =
-      getStationTripAmounts(await getTripData(), station);
-    const stationResponse: StationResponse = {
-      station,
-      totalTripsFromStation,
-      totalTripsToStation,
-    };
-    res.status(200).json(stationResponse);
+  const station = getStation(stationID);
+  if (!station) {
+    res.sendStatus(404);
+    return;
   }
-);
+
+  const { totalTripsFromStation, totalTripsToStation } = getStationTripAmounts(
+    getTripData(),
+    station
+  );
+  const stationResponse: StationResponse = {
+    station,
+    totalTripsFromStation,
+    totalTripsToStation,
+  };
+  res.status(200).json(stationResponse);
+});
 
 type StationTotalTrips = {
   totalTripsFromStation: number;
