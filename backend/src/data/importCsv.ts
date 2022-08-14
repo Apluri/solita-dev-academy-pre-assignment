@@ -33,8 +33,13 @@ export async function importCsvFiles() {
   return;
 }
 
-export async function getTripData(): Promise<Trip[]> {
-  return tripData;
+export async function getTripData(
+  startIndex: number | null = null,
+  endindex: number | null = null
+): Promise<Trip[]> {
+  if (startIndex == null || endindex == null) return tripData;
+
+  return tripData.slice(startIndex, endindex);
 }
 
 export async function getStationData(): Promise<Station[]> {
