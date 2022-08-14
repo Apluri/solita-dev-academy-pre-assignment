@@ -8,14 +8,18 @@ import { FixedSizeList, ListChildComponentProps } from "react-window";
 
 type Props = {
   stationData: Station[];
+  setSelectedStation: (station: Station) => void;
 };
-export default function StationListView({ stationData }: Props) {
+export default function StationListView({
+  stationData,
+  setSelectedStation,
+}: Props) {
   function renderRow(props: ListChildComponentProps) {
     const { index, style } = props;
 
     return (
       <ListItem style={style} key={index} component="div" disablePadding>
-        <ListItemButton>
+        <ListItemButton onClick={() => setSelectedStation(stationData[index])}>
           <ListItemText primary={`${stationData[index].englishName}`} />
         </ListItemButton>
       </ListItem>

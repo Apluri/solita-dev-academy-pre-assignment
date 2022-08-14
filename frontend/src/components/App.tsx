@@ -1,15 +1,17 @@
 import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Station, Trip } from "../../../shared/dataTypes";
+import { Station, StationResponse, Trip } from "../../../shared/dataTypes";
 import axios from "axios";
 import TripListView from "./TripListView";
 import StationListView from "./StationListView";
+import SingleStation from "./SingleStation";
 
 export const BASE_API_URL = "http://localhost:8080/api";
 const STATION_DATA_URL = "/stationdata";
 
 function App() {
   const [stationData, setStationData] = useState<Station[]>([]);
+  const [selectedStation, setSelectedStation] = useState<Station>();
 
   async function fetchStationData() {
     try {
@@ -28,9 +30,15 @@ function App() {
   }, []);
 
   return (
-    <Box>
+    <Box sx={{ margin: "2em" }}>
       <TripListView />
-      <StationListView stationData={stationData} />
+      <Box sx={{ display: "flex", marginTop: "2em" }}>
+        <StationListView
+          stationData={stationData}
+          setSelectedStation={(station: Station) => setSelectedStation(station)}
+        />
+        <SingleStation station={selectedStation} />
+      </Box>
     </Box>
   );
 }
