@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import TripListView from "./TripListView";
+import TripListView from "./trip/TripListView";
 import { Navigate, Route, Routes } from "react-router-dom";
-import StationView from "./StationView";
+import StationView from "./station/StationView";
 import NavButtons from "./NavButtons";
 
 export const BASE_API_URL = "http://localhost:8080/api";

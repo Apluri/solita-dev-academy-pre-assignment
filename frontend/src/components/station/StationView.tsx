@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
 import { useState } from "react";
-import { Station } from "../../../shared/dataTypes";
+import { Station } from "../../../../shared/dataTypes";
 import SingleStation from "./SingleStation";
 import StationListView from "./StationListView";
 

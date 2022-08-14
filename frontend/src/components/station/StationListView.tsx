@@ -1,12 +1,12 @@
 import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { Station } from "../../../shared/dataTypes";
+import { Station } from "../../../../shared/dataTypes";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { FixedSizeList, ListChildComponentProps } from "react-window";
 import axios from "axios";
-import { BASE_API_URL, STATION_DATA_URL } from "./App";
+import { BASE_API_URL, STATION_DATA_URL } from "../App";
 import { useEffect, useState } from "react";
 
 type Props = {

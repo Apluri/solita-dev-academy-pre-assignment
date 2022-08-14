@@ -7,9 +7,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Trip, TripResponse } from "../../../shared/dataTypes";
+import { Trip, TripResponse } from "../../../../shared/dataTypes";
 import axios from "axios";
-import { BASE_API_URL } from "./App";
+import { BASE_API_URL } from "../App";
 
 import TablePaginationActions from "./TablePaginationActions";
 import { Typography } from "@mui/material";
