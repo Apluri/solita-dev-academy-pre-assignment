@@ -7,7 +7,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { Trip } from "../../../shared/dataTypes";
+import { Trip, TripResponse } from "../../../shared/dataTypes";
+import axios from "axios";
+import { BASE_API_URL } from "./App";
+
+import TablePaginationActions from "./TablePaginationActions";
+
+const TRIP_DATA_URL = "/tripdata";
 
 interface Column {
   key:
@@ -34,13 +40,33 @@ const columns: Column[] = [
   },
 ];
 
-type Props = {
-  tripData: Trip[];
-};
-export default function TripListView({ tripData }: Props) {
+export default function TripListView() {
+  const [tripData, setTripdata] = useState<Trip[]>([]);
+  const [datasetSize, setDatasetSize] = useState<number>(0);
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [editedTripData, setEditedTripData] = useState<Trip[]>([]);
+
+  async function fetchTripData() {
+    try {
+      const startIndex: number = page * rowsPerPage;
+      const endIndex: number = page * rowsPerPage + rowsPerPage;
+      const extraQuery = `?startindex=${startIndex}&endindex=${endIndex}`;
+      const response = await axios.get(
+        BASE_API_URL + TRIP_DATA_URL + extraQuery
+      );
+      const tripResponse: TripResponse = response.data;
+
+      setTripdata(tripResponse.trips);
+      setDatasetSize(tripResponse.datasetSize);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  useEffect(() => {
+    fetchTripData();
+  }, [page, rowsPerPage]);
 
   useEffect(() => {
     editTripData();
@@ -80,7 +106,7 @@ export default function TripListView({ tripData }: Props) {
   return (
     <Paper sx={{ width: "100%" }}>
       <TableContainer sx={{ maxHeight: 600 }}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickyHeader>
           <TableHead>
             <TableRow>
               {columns.map((column) => (
@@ -91,37 +117,36 @@ export default function TripListView({ tripData }: Props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {editedTripData
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => {
-                return (
-                  <TableRow hover key={index}>
-                    {columns.map((column) => {
-                      const value = row[column.key];
-                      return (
-                        <TableCell
-                          key={column.key}
-                          align={column.align}
-                          sx={{ width: `${100 / columns.length}%` }}
-                        >
-                          {value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
+            {editedTripData.map((row, index) => {
+              return (
+                <TableRow hover key={index}>
+                  {columns.map((column) => {
+                    const value = row[column.key];
+                    return (
+                      <TableCell
+                        key={column.key}
+                        align={column.align}
+                        sx={{ width: `${100 / columns.length}%` }}
+                      >
+                        {value}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={tripData.length}
+        count={datasetSize}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        ActionsComponent={(props) => <TablePaginationActions {...props} />}
       />
     </Paper>
   );

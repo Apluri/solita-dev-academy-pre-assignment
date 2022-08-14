@@ -24,3 +24,8 @@ export type Station = {
   x: number;
   y: number;
 };
+
+export type TripResponse = {
+  trips: Trip[];
+  datasetSize: number;
+};

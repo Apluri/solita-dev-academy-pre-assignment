@@ -1,9 +1,15 @@
 import express, { Request, Response } from "express";
-import { getStationData, getTripData } from "../data/importCsv";
+import { TripResponse } from "../../../shared/dataTypes";
+import {
+  getStationData,
+  getTripData,
+  getTripDataLength,
+} from "../data/importCsv";
 
 const router = express.Router();
 
 router.get("/tripdata", async (req: Request, res: Response) => {
+  // limit fetch to smaller ones for perfomance reasons
   const maxRowsToFetch = 500;
 
   const query = req.query;
@@ -21,12 +27,19 @@ router.get("/tripdata", async (req: Request, res: Response) => {
       return;
     }
 
-    res.status(200).json(await getTripData(startIndex, endIndex));
+    const tripResponse: TripResponse = {
+      trips: await getTripData(startIndex, endIndex),
+      datasetSize: getTripDataLength(),
+    };
+    res.status(200).json(tripResponse);
     return;
   }
 
-  // limit to 500 for performance reasons
-  res.status(200).json(await getTripData(0, maxRowsToFetch));
+  const tripResponse: TripResponse = {
+    trips: await getTripData(0, maxRowsToFetch),
+    datasetSize: getTripDataLength(),
+  };
+  res.status(200).json(tripResponse);
 });
 router.get("/stationdata", async (req: Request, res: Response) => {
   const stationData = await getStationData();
