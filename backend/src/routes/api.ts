@@ -1,6 +1,4 @@
 import express, { Request, Response } from "express";
-import { chownSync } from "fs";
-import { Trip, Station } from "../../../shared/dataTypes";
 import { getStationData, getTripData } from "../data/importCsv";
 
 const router = express.Router();
@@ -27,7 +25,7 @@ router.get("/tripdata", async (req: Request, res: Response) => {
 });
 router.get("/stationdata", async (req: Request, res: Response) => {
   const stationData = await getStationData();
-  res.json(stationData);
+  res.status(200).json(stationData);
 });
 
 export default router;
