@@ -11,8 +11,13 @@ router.get("/tripdata", async (req: Request, res: Response) => {
     const startIndex: number = parseInt(query.startindex as string);
     const endIndex: number = parseInt(query.endindex as string);
 
+    if (!(startIndex || endIndex)) {
+      res.sendStatus(404);
+      return;
+    }
+
     if (endIndex - startIndex > maxRowsToFetch) {
-      res.sendStatus(403);
+      res.sendStatus(400);
       return;
     }
 
