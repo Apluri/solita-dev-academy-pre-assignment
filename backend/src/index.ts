@@ -1,25 +1,11 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
-import { getTripData, getStationData, importCsvFiles } from "./data/importCsv";
-import { Trip } from "../../shared/dataTypes";
+import { importCsvFiles } from "./data/importCsv";
+import api from "./routes/api";
 
 const app = express();
 app.use(cors());
-
-app.get("/tripdata", async (req: Request, res: Response) => {
-  const tripData = await getTripData();
-
-  // before pagination send 500 first rows
-  const trimmedData: Trip[] = [];
-  for (let i = 0; i < 500; i++) {
-    trimmedData.push(tripData[i]);
-  }
-  res.json(trimmedData);
-});
-app.get("/stationdata", async (req: Request, res: Response) => {
-  const stationData = await getStationData();
-  res.json(stationData);
-});
+app.use("/api", api);
 
 async function main() {
   // TODO when database is implemented, this should be removed or added behind if statement
