@@ -29,3 +29,9 @@ export type TripResponse = {
   trips: Trip[];
   datasetSize: number;
 };
+
+export type StationResponse = {
+  station: Station;
+  totalTripsFromStation: number;
+  totalTripsToStation: number;
+};
