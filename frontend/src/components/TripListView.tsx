@@ -12,6 +12,8 @@ import axios from "axios";
 import { BASE_API_URL } from "./App";
 
 import TablePaginationActions from "./TablePaginationActions";
+import { Typography } from "@mui/material";
+import { Box } from "@mui/system";
 
 const TRIP_DATA_URL = "/tripdata";
 
@@ -104,50 +106,53 @@ export default function TripListView() {
   }
 
   return (
-    <Paper sx={{ width: "100%" }}>
-      <TableContainer sx={{ maxHeight: 600 }}>
-        <Table stickyHeader>
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell key={column.key} align={column.align}>
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {editedTripData.map((row, index) => {
-              return (
-                <TableRow hover key={index}>
-                  {columns.map((column) => {
-                    const value = row[column.key];
-                    return (
-                      <TableCell
-                        key={column.key}
-                        align={column.align}
-                        sx={{ width: `${100 / columns.length}%` }}
-                      >
-                        {value}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={datasetSize}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        ActionsComponent={(props) => <TablePaginationActions {...props} />}
-      />
-    </Paper>
+    <Box sx={{ width: "100%" }}>
+      <Typography variant="h4">Trips</Typography>
+      <Paper>
+        <TableContainer sx={{ maxHeight: 600 }}>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell key={column.key} align={column.align}>
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {editedTripData.map((row, index) => {
+                return (
+                  <TableRow hover key={index}>
+                    {columns.map((column) => {
+                      const value = row[column.key];
+                      return (
+                        <TableCell
+                          key={column.key}
+                          align={column.align}
+                          sx={{ width: `${100 / columns.length}%` }}
+                        >
+                          {value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={datasetSize}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          ActionsComponent={(props) => <TablePaginationActions {...props} />}
+        />
+      </Paper>
+    </Box>
   );
 }

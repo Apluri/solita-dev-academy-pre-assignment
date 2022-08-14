@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Station } from "../../../shared/dataTypes";
 import ListItem from "@mui/material/ListItem";
@@ -43,23 +43,19 @@ export default function StationListView({ setSelectedStation }: Props) {
     );
   }
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: 400,
-        maxWidth: 360,
-      }}
-    >
+    <Box>
       <Typography variant="h4">Stations</Typography>
-      <FixedSizeList
-        height={400}
-        width={360}
-        itemSize={46}
-        itemCount={stationData.length}
-        overscanCount={5}
-      >
-        {renderRow}
-      </FixedSizeList>
+      <Paper>
+        <FixedSizeList
+          height={window.innerHeight * 0.7}
+          width={360}
+          itemSize={46}
+          itemCount={stationData.length}
+          overscanCount={5}
+        >
+          {renderRow}
+        </FixedSizeList>
+      </Paper>
     </Box>
   );
 }
