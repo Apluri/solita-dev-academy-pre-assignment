@@ -1,19 +1,36 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { Station } from "../../../shared/dataTypes";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { FixedSizeList, ListChildComponentProps } from "react-window";
+import axios from "axios";
+import { BASE_API_URL, STATION_DATA_URL } from "./App";
+import { useEffect, useState } from "react";
 
 type Props = {
-  stationData: Station[];
   setSelectedStation: (station: Station) => void;
 };
-export default function StationListView({
-  stationData,
-  setSelectedStation,
-}: Props) {
+export default function StationListView({ setSelectedStation }: Props) {
+  const [stationData, setStationData] = useState<Station[]>([]);
+
+  async function fetchStationData() {
+    try {
+      const response = await axios.get(BASE_API_URL + STATION_DATA_URL);
+      const stations: Station[] = response.data;
+      setStationData(
+        stations.sort((a, b) => (a.englishName > b.englishName ? 1 : -1))
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  useEffect(() => {
+    fetchStationData();
+  }, []);
+
   function renderRow(props: ListChildComponentProps) {
     const { index, style } = props;
 

@@ -1,6 +1,6 @@
 import { Typography, Box } from "@mui/material";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Station, StationResponse } from "../../../shared/dataTypes";
 import { BASE_API_URL, STATION_DATA_URL } from "./App";
 
