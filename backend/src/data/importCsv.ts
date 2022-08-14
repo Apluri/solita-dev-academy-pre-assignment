@@ -48,6 +48,9 @@ export function getTripDataLength(): number {
 export async function getStationData(): Promise<Station[]> {
   return stationData;
 }
+export function getStation(id: number): Station | undefined {
+  return stationData.find((station) => station.id == id);
+}
 
 function getFileNames(path: string): Promise<string[]> {
   return new Promise((resolve, reject) => {
