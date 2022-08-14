@@ -34,7 +34,7 @@ export default function StationListView({ stationData }: Props) {
         height={400}
         width={360}
         itemSize={46}
-        itemCount={200}
+        itemCount={stationData.length}
         overscanCount={5}
       >
         {renderRow}

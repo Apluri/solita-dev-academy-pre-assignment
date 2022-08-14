@@ -8,6 +8,10 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Trip } from "../../../shared/dataTypes";
+import axios from "axios";
+import { BASE_API_URL } from "./App";
+
+const TRIP_DATA_URL = "/tripdata";
 
 interface Column {
   key:
@@ -34,13 +38,29 @@ const columns: Column[] = [
   },
 ];
 
-type Props = {
-  tripData: Trip[];
-};
-export default function TripListView({ tripData }: Props) {
+export default function TripListView() {
+  const [tripData, setTripdata] = useState<Trip[]>([]);
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [editedTripData, setEditedTripData] = useState<Trip[]>([]);
+
+  async function fetchTripData() {
+    try {
+      const response = await axios.get(BASE_API_URL + TRIP_DATA_URL);
+      const trips: Trip[] = response.data;
+      setTripdata(
+        trips.sort((a, b) =>
+          a.departureStationName > b.departureStationName ? 1 : -1
+        )
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  useEffect(() => {
+    fetchTripData();
+  }, []);
 
   useEffect(() => {
     editTripData();
