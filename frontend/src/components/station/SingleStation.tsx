@@ -1,8 +1,8 @@
 import { Typography, Box, Dialog } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Station, StationResponse } from "../../../shared/dataTypes";
-import { BASE_API_URL, STATION_DATA_URL } from "./App";
+import { Station, StationResponse } from "../../../../shared/dataTypes";
+import { BASE_API_URL, STATION_DATA_URL } from "../App";
 
 type Props = {
   station: Station | null;
