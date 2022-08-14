@@ -7,7 +7,7 @@ import StationListView from "./StationListView";
 import SingleStation from "./SingleStation";
 
 export const BASE_API_URL = "http://localhost:8080/api";
-const STATION_DATA_URL = "/stationdata";
+export const STATION_DATA_URL = "/stationdata";
 
 function App() {
   const [stationData, setStationData] = useState<Station[]>([]);
