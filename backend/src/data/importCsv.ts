@@ -41,6 +41,9 @@ export async function getTripData(
 
   return tripData.slice(startIndex, endindex);
 }
+export function getTripDataLength(): number {
+  return tripData.length;
+}
 
 export async function getStationData(): Promise<Station[]> {
   return stationData;
