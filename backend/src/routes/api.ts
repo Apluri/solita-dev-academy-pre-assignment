@@ -62,10 +62,8 @@ router.get(
       return;
     }
 
-    const { totalTripsFromStation, totalTripsToStation } = getTotalTrips(
-      await getTripData(),
-      station
-    );
+    const { totalTripsFromStation, totalTripsToStation } =
+      getStationTripAmounts(await getTripData(), station);
     const stationResponse: StationResponse = {
       station,
       totalTripsFromStation,
@@ -79,7 +77,10 @@ type StationTotalTrips = {
   totalTripsFromStation: number;
   totalTripsToStation: number;
 };
-function getTotalTrips(tripData: Trip[], station: Station): StationTotalTrips {
+function getStationTripAmounts(
+  tripData: Trip[],
+  station: Station
+): StationTotalTrips {
   let totalTripsFromStation = 0;
   let totalTripsToStation = 0;
   tripData.forEach((trip) => {
