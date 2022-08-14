@@ -35,7 +35,9 @@ This application is created using technologies and frameworks such as:
 
 You need to have [nodeJS](https://nodejs.org/en/) installed.
 
-Project is developed and tested with node version v16.13.2.
+Project is developed and tested with:
+- node version v16.13.2.
+- Windows 10
 
 ## Commands to run in terminal
 
