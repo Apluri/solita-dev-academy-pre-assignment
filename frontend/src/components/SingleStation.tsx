@@ -40,20 +40,27 @@ export default function SingleStation({ station, onClose }: Props) {
     <Dialog onClose={handleClose} open={open}>
       <Box sx={{ marginX: "2em" }}>
         <Typography variant="h6">Station info</Typography>
-        <Typography>
-          Station name: <b>{stationResponse?.station.englishName}</b>
-        </Typography>
-        <Typography>
-          Station address: <b>{stationResponse?.station.address}</b>
-        </Typography>
-        <Typography>
-          Total number of journeys starting from the station:
-          <b>{stationResponse?.totalTripsFromStation}</b>
-        </Typography>
-        <Typography>
-          Total number of journeys ending at the station:
-          <b>{stationResponse?.totalTripsToStation}</b>
-        </Typography>
+
+        {stationResponse ? (
+          <Box>
+            <Typography>
+              Station name: <b>{stationResponse?.station.englishName}</b>
+            </Typography>
+            <Typography>
+              Station address: <b>{stationResponse?.station.address}</b>
+            </Typography>
+            <Typography>
+              Total number of journeys starting from the station:
+              <b>{stationResponse?.totalTripsFromStation}</b>
+            </Typography>
+            <Typography>
+              Total number of journeys ending at the station:
+              <b>{stationResponse?.totalTripsToStation}</b>
+            </Typography>
+          </Box>
+        ) : (
+          <Typography>Loading station data...</Typography>
+        )}
       </Box>
     </Dialog>
   );
